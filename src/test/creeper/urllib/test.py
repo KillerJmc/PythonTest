@@ -17,16 +17,16 @@ def new_2line():
 def print_all(*objs):
     for o in objs:
         print(o)
-        
-        
+
+
 def show(pic_f):
-    #import matplot好lib.pyplot as plt
+    # import matplot, lib.pyplot as plt
     plt = None
     from PIL import Image
     im = Image.open(pic_f)
     plt.imshow(im)
     plt.show()
-        
+
 
 def outh(src):
     out(src.decode('utf-8'), '/sdcard/ok.html')

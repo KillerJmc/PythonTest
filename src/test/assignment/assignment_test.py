@@ -33,8 +33,8 @@ def out(s, path):
 def read(path):
     with open(path, 'r') as f:
         return f.read()
-        
-        
+
+
 def delfs(*fs):
     for f in fs:
         if not os.path.isdir(f):
@@ -293,7 +293,7 @@ print(id(l1 * 3))
 print(l1 * 3)
 new_line()
 
-# delete 
+# delete
 print(id(l1))
 del (l1[3])
 print(id(l1), '\n', l1)
@@ -395,7 +395,7 @@ t = 10, 20, 30
 print(type(t), "\n", t)
 new_line()
 
-# wrong 
+# wrong
 t = (20)
 print(type(t))
 
@@ -459,7 +459,7 @@ print(dic["age"])
 print(dic.get('name'))
 # get(key, if none return what)
 print(dic.get('sjsjsj', "Doesn't exist!"))
-# cause exception if not exist: 
+# cause exception if not exist:
 # print(dic['sjsjsj'])
 new_line()
 
@@ -694,7 +694,7 @@ print(count)
 """
 new_line()
 
-# set 
+# set
 d = {x ** x for x in range(1, 10)}
 print(d)
 new_line()
@@ -826,7 +826,7 @@ g = [lambda a: a * 2, lambda b: b * 3, lambda c: c * 4]
 print(g[0](1), g[1](2), g[2](3))
 new_line()
 
-# eval 
+# eval
 eval("print('hello')")
 
 a = 1
@@ -1066,7 +1066,7 @@ class Emp:
     def salary(self):
         return self.__salary
 
-    # write this after @property was given    
+    # write this after @property was given
     @salary.setter
     def salary(self, salary):
         if 1000 <= salary <= 100000:
@@ -1292,322 +1292,321 @@ print(ms2.name)
 new_line()
 
 
-"""
-# io
-# r'str' 为原始字串符（使转义字符失去作用(包括\n)，所以就可以不用双反斜杠转义了）
-try:
-    f = open(r'/sdcard/temp.txt', 'w')
-    f.write('Hello World!\n')
-    l = ['what', ' ', 'the', ' ', 'fuck']
-    f.writelines(l)
-except BaseException as e:
-    print(e)
-finally:
-    f.close()
-    
-# with（上下文管理器）能管理上下文资源，不管是否中断，都能自动还原到进入该代码块的现场，可以代替try
-with open(r'/sdcard/temp.txt', 'w') as f:
-    f.write('OK Sir!')
-
-# read
-def write():
-    with open(r'/sdcard/temp.txt', 'w') as f:
-        str = """我print('lalala')
-print('papapa')
-print('hahaha')
-    """
-        f.write(str)
-    
-# can read only once: like a iterator
-write()
-def read_this(mode):
-    with open(r'/sdcard/temp.txt', 'r') as f:
-        if mode == 0:
-            result = f.read()
-        elif mode == 1:
-            result = f.read(3)
-        elif mode == 2:
-            result = f.readline()
-        elif mode == 3:
-            result = f.readlines()
-        elif mode == 4:
-            for l in f: print(l, end='')
-            new_2line()
-            return
-            
-        print(result)
-        new_line()
-        
-for i in range(0, 5):
-    read_this(i)
-  
-# enumerate(enum): add line number
-write()
-path = r'/sdcard/temp.txt'
-lq = None
-with open(path, 'r') as f:
-    l = f.readlines()
-    e = enumerate(l)
-    # print(list(e))
-    for i in e: print(i)
-    
-new_line()
-
-# extend
-# str is used, so we need to del it
-del str
-k = [x + " #" + str(idx) for idx, x in enumerate(l)]
-print(k)
-new_line()
-
-# copy
-with open('/sdcard/temp.txt', 'rb') as r,open('/sdcard/test_copy.txt', 'wb') as w:
-    w.writelines(r.readlines())
-
-# other
-with open(path, 'r') as f:
-    print(f.name)
-    # tell the ptr position
-    print(f.tell())
-    print(f.readline())
-    print(f.tell())
-    
-    # 2nd parm: whence
-    # 0: calculate from file head
-    # 1: calculate from here
-    # 2: calculate from file tail
-    f.seek(3)
-    print(f.readline())
-
-new_line()
-
-# serialization
-a = 'Jmc'
-b = 123
-c = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-s_path = '/sdcard/series.txt'
-
-with open(s_path, 'wb') as f:
-    # 泡菜.倾倒()
-    pickle.dump(a, f)
-    pickle.dump(b, f)
-    pickle.dump(c, f)
-    
-with open(s_path,'rb') as f:
-    a = pickle.load(f)
-    b = pickle.load(f)
-    c = pickle.load(f)
-    # the id of them are different than before!
-    print_all(a, b, c)
-    new_line()
-    
-# csv
-path = '/sdcard/csv.txt'
-
-out("""ID,姓名,年龄,薪资
-1001,高琪,18,50000
-1002,高八,18,30000
-1003,高九,20,20000""", path)
-
-with open(path, 'r') as f:
-    a_csv = csv.reader(f) 
-    # list = list(a_csv)  
-    for l in a_csv: print(l)
-    
-new_line()
-
-with open(path, 'w') as f:
-    b_csv = csv.writer(f)
-    b_csv.writerow(['Name', 'Sex'])
-    b_csv.writerows([['Jerry', 'Man'], ['Summer', 'Woman']])
-
-print(read(path))
-new_line()
-
-# exec system cmd
-print(os.system('cd /sdcard && ls'))
-# os.startfile('*/*.exe')
-new_line()
-
-# os
-print(os.name)
-print(os.sep)
-# repr()：将对象转化为可供解释器读取的形式。
-print(repr(os.linesep))
-print(os.stat('/sdcard/temp.txt'))
-new_line()
-
-# get current work dir
-print(os.getcwd())
-# change current work dir
-os.chdir("/sdcard")
-# mkdir in the cwd
-os.mkdir("oksir")
-# del dir(only if the dir is empty!)
-os.rmdir("oksir")
-print(os.getcwd())
-new_line()
-
-# support "../a/b/c"
-os.makedirs("a/b/c")
-# can only del empty dir
-os.removedirs("a/b/c")
-
-# rename dir or file
-# os.rename("sogou", "shit")
-"""
-os.rename(old_file_path, new_file_path), 只能对相应的文件进行重命名
-os.renames(old_file_path, new_file_path), 是os.rename的升级版, 既可以重命名文件, 也可以重命名文件的上级目录名.
-"""
-
-t = 'tencent'
-print(os.listdir(t))
-new_line()
-
-print(os.path.isabs(t))
-print(os.path.isdir(t))
-print(os.path.isfile(t))
-print(os.path.exists(t))
-
-print(os.path.getsize(t))
-print(os.path.abspath(t))
-print(os.path.dirname("/sdcard/tencent"))
-
-print(os.path.getctime(t))
-print(os.path.getatime(t))
-print(os.path.getmtime(t))
-new_line()
-
-path = os.path.abspath(t)
-print(os.path.split(path))
-print(os.path.splitext("/sdcard/a.txt"))
-print(os.path.join("a", "b", "c"))
-new_line()
-
-# practice : list all py files from cwd
-f_list = os.listdir(cwd)
-for f_name in f_list:
-    if (f_name.endswith('py')):
-        print(f_name)
-        
-f_list2 = [f_name for f_name in os.listdir(cwd) if f_name.endswith('py')]
-
-print(f_list2)
-new_line()
-
-os.chdir(cwd)
-l = os.walk("../")
-print(l)
-
-all_fs= []
-all_dirs= []
-
-for dirpath, dirnames, filenames in l:
-    # parent path
-    #print('dirpath', dirpath)
-    
-    # dirs in parent path
-    for dir in dirnames:
-        #print('dirname', dir)
-        all_fs.append(os.path.join(dirpath, dir))
-        pass
-    
-    # files in parent path
-    for file in filenames:
-        #print('filename', file)
-        all_dirs.append(os.path.join(dirpath, file))
-        pass
-            
-print_all(all_fs, all_dirs)
-os.chdir("/sdcard")
-new_line()
-
-os.mkdir("a")
-shutil.copyfile("temp.txt", "a/temp.txt")
-
-os.makedirs("a/b/c")
-# create file
-with open("a/b/c/ok.txt", "w") as f: 
-    pass
-
-
-try:
-    # copy only des not exist
-    shutil.copytree("a/b/c", "a/oksir")
-    #shutil.copytree('y/b/c', 'y/oksir', ignore = shutil.ignore_patterns('*.txt', '*.py', '*.html'))
-except Exception as e:
-    pass
-    
-# shutil.rmtree('a')
+# # io
+# # r'str' 为原始字串符（使转义字符失去作用(包括\n)，所以就可以不用双反斜杠转义了）
+# try:
+#     f = open(r'/sdcard/temp.txt', 'w')
+#     f.write('Hello World!\n')
+#     l = ['what', ' ', 'the', ' ', 'fuck']
+#     f.writelines(l)
+# except BaseException as e:
+#     print(e)
+# finally:
+#     f.close()
+#
+# # with（上下文管理器）能管理上下文资源，不管是否中断，都能自动还原到进入该代码块的现场，可以代替try
+# with open(r'/sdcard/temp.txt', 'w') as f:
+#     f.write('OK Sir!')
+#
+# # read
+# def write():
+#     with open(r'/sdcard/temp.txt', 'w') as f:
+#         str = """我print('lalala')
+# print('papapa')
+# print('hahaha')
+#     """
+#         f.write(str)
+#
+# # can read only once: like a iterator
+# write()
+# def read_this(mode):
+#     with open(r'/sdcard/temp.txt', 'r') as f:
+#         if mode == 0:
+#             result = f.read()
+#         elif mode == 1:
+#             result = f.read(3)
+#         elif mode == 2:
+#             result = f.readline()
+#         elif mode == 3:
+#             result = f.readlines()
+#         elif mode == 4:
+#             for l in f: print(l, end='')
+#             new_2line()
+#             return
+#
+#         print(result)
+#         new_line()
+#
+# for i in range(0, 5):
+#     read_this(i)
+#
+# # enumerate(enum): add line number
+# write()
+# path = r'/sdcard/temp.txt'
+# lq = None
+# with open(path, 'r') as f:
+#     l = f.readlines()
+#     e = enumerate(l)
+#     # print(list(e))
+#     for i in e: print(i)
+#
 # new_line()
-
-"""
-shutil:
-copyfile(src, dst) #src, dst 都需是文件名, 如果dst 存在或无权限，会抛出异常
-copy(src, dst) #dst 可以是目录名。
-"""
+#
+# # extend
+# # str is used, so we need to del it
+# del str
+# k = [x + " #" + str(idx) for idx, x in enumerate(l)]
+# print(k)
 # new_line()
-
-"""
-shutil.make_archive(base_name, format[, root_dir[, base_dir...)
-
-"zip", "tar", "bztar"，"gztar"
-root_dir：打包的根目录（也是压缩包里的）
-base_dir：要进行压缩的源文件或者目录,
-root_dir和base_dir都默认为当前目录
-"""
-# 可用...('a', 'zip', base_dir = 'did')来压缩文件或文件夹！
-shutil.make_archive("archive_a", "zip","a")
-
-shutil.rmtree("a")
-
-with zipfile.ZipFile("t.zip", "w") as z1:
-    z1.write("temp.txt")
-    z1.write("test_copy.txt")
-    
-os.remove("temp.txt")
-os.remove("test_copy.txt")
-
-with zipfile.ZipFile("t.zip", "r") as z2:
-    # extract all to a path
-    z2.extractall("")
-
-delfs('csv.txt', 'series.txt', 'temp.txt', 'test_copy.txt')
-"""
-
-
-del str
-
-class ShitError(Exception):
-    def __init__(self, errorInfo):
-        Exception.__init__(self)
-        self.errorInfo = errorInfo
-        
-    def __str__(self):
-        return 'Shit error: that shit is illegal \'' + str(self.errorInfo) + '\''
-
-
-try:
-    raise ShitError('I wanna code')
-except Exception as e:
-    print(e)
-    new_line()
-
-
-# import
-
-# normal
-import src.com.jmc.io.files as f
-print(f)
-# from . import [module_name]
-
-# dynamic 
-o = __import__('os')
-print(o)
-
-t = importlib.import_module('turtle')
-print(t)
-
-# importlib.reload('module_name')
-
-new_line()
+#
+# # copy
+# with open('/sdcard/temp.txt', 'rb') as r,open('/sdcard/test_copy.txt', 'wb') as w:
+#     w.writelines(r.readlines())
+#
+# # other
+# with open(path, 'r') as f:
+#     print(f.name)
+#     # tell the ptr position
+#     print(f.tell())
+#     print(f.readline())
+#     print(f.tell())
+#
+#     # 2nd parm: whence
+#     # 0: calculate from file head
+#     # 1: calculate from here
+#     # 2: calculate from file tail
+#     f.seek(3)
+#     print(f.readline())
+#
+# new_line()
+#
+# # serialization
+# a = 'Jmc'
+# b = 123
+# c = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+# s_path = '/sdcard/series.txt'
+#
+# with open(s_path, 'wb') as f:
+#     # 泡菜.倾倒()
+#     pickle.dump(a, f)
+#     pickle.dump(b, f)
+#     pickle.dump(c, f)
+#
+# with open(s_path,'rb') as f:
+#     a = pickle.load(f)
+#     b = pickle.load(f)
+#     c = pickle.load(f)
+#     # the id of them are different than before!
+#     print_all(a, b, c)
+#     new_line()
+#
+# # csv
+# path = '/sdcard/csv.txt'
+#
+# out("""ID,姓名,年龄,薪资
+# 1001,高琪,18,50000
+# 1002,高八,18,30000
+# 1003,高九,20,20000""", path)
+#
+# with open(path, 'r') as f:
+#     a_csv = csv.reader(f)
+#     # list = list(a_csv)
+#     for l in a_csv: print(l)
+#
+# new_line()
+#
+# with open(path, 'w') as f:
+#     b_csv = csv.writer(f)
+#     b_csv.writerow(['Name', 'Sex'])
+#     b_csv.writerows([['Jerry', 'Man'], ['Summer', 'Woman']])
+#
+# print(read(path))
+# new_line()
+#
+# # exec system cmd
+# print(os.system('cd /sdcard && ls'))
+# # os.startfile('*/*.exe')
+# new_line()
+#
+# # os
+# print(os.name)
+# print(os.sep)
+# # repr()：将对象转化为可供解释器读取的形式。
+# print(repr(os.linesep))
+# print(os.stat('/sdcard/temp.txt'))
+# new_line()
+#
+# # get current work dir
+# print(os.getcwd())
+# # change current work dir
+# os.chdir("/sdcard")
+# # mkdir in the cwd
+# os.mkdir("oksir")
+# # del dir(only if the dir is empty!)
+# os.rmdir("oksir")
+# print(os.getcwd())
+# new_line()
+#
+# # support "../a/b/c"
+# os.makedirs("a/b/c")
+# # can only del empty dir
+# os.removedirs("a/b/c")
+#
+# # rename dir or file
+# # os.rename("sogou", "shit")
+# """
+# os.rename(old_file_path, new_file_path), 只能对相应的文件进行重命名
+# os.renames(old_file_path, new_file_path), 是os.rename的升级版, 既可以重命名文件, 也可以重命名文件的上级目录名.
+# """
+#
+# t = 'tencent'
+# print(os.listdir(t))
+# new_line()
+#
+# print(os.path.isabs(t))
+# print(os.path.isdir(t))
+# print(os.path.isfile(t))
+# print(os.path.exists(t))
+#
+# print(os.path.getsize(t))
+# print(os.path.abspath(t))
+# print(os.path.dirname("/sdcard/tencent"))
+#
+# print(os.path.getctime(t))
+# print(os.path.getatime(t))
+# print(os.path.getmtime(t))
+# new_line()
+#
+# path = os.path.abspath(t)
+# print(os.path.split(path))
+# print(os.path.splitext("/sdcard/a.txt"))
+# print(os.path.join("a", "b", "c"))
+# new_line()
+#
+# # practice : list all py files from cwd
+# f_list = os.listdir(cwd)
+# for f_name in f_list:
+#     if (f_name.endswith('py')):
+#         print(f_name)
+#
+# f_list2 = [f_name for f_name in os.listdir(cwd) if f_name.endswith('py')]
+#
+# print(f_list2)
+# new_line()
+#
+# os.chdir(cwd)
+# l = os.walk("../")
+# print(l)
+#
+# all_fs= []
+# all_dirs= []
+#
+# for dirpath, dirnames, filenames in l:
+#     # parent path
+#     #print('dirpath', dirpath)
+#
+#     # dirs in parent path
+#     for dir in dirnames:
+#         #print('dirname', dir)
+#         all_fs.append(os.path.join(dirpath, dir))
+#         pass
+#
+#     # files in parent path
+#     for file in filenames:
+#         #print('filename', file)
+#         all_dirs.append(os.path.join(dirpath, file))
+#         pass
+#
+# print_all(all_fs, all_dirs)
+# os.chdir("/sdcard")
+# new_line()
+#
+# os.mkdir("a")
+# shutil.copyfile("temp.txt", "a/temp.txt")
+#
+# os.makedirs("a/b/c")
+# # create file
+# with open("a/b/c/ok.txt", "w") as f:
+#     pass
+#
+#
+# try:
+#     # copy only des not exist
+#     shutil.copytree("a/b/c", "a/oksir")
+#     #shutil.copytree('y/b/c', 'y/oksir', ignore = shutil.ignore_patterns('*.txt', '*.py', '*.html'))
+# except Exception as e:
+#     pass
+#
+# # shutil.rmtree('a')
+# # new_line()
+#
+# """
+# shutil:
+# copyfile(src, dst) #src, dst 都需是文件名, 如果dst 存在或无权限，会抛出异常
+# copy(src, dst) #dst 可以是目录名。
+# """
+# # new_line()
+#
+# """
+# shutil.make_archive(base_name, format[, root_dir[, base_dir...)
+#
+# "zip", "tar", "bztar"，"gztar"
+# root_dir：打包的根目录（也是压缩包里的）
+# base_dir：要进行压缩的源文件或者目录,
+# root_dir和base_dir都默认为当前目录
+# """
+# # 可用...('a', 'zip', base_dir = 'did')来压缩文件或文件夹！
+# shutil.make_archive("archive_a", "zip","a")
+#
+# shutil.rmtree("a")
+#
+# with zipfile.ZipFile("t.zip", "w") as z1:
+#     z1.write("temp.txt")
+#     z1.write("test_copy.txt")
+#
+# os.remove("temp.txt")
+# os.remove("test_copy.txt")
+#
+# with zipfile.ZipFile("t.zip", "r") as z2:
+#     # extract all to a path
+#     z2.extractall("")
+#
+# delfs('csv.txt', 'series.txt', 'temp.txt', 'test_copy.txt')
+# """
+#
+#
+# del str
+#
+# class ShitError(Exception):
+#     def __init__(self, errorInfo):
+#         Exception.__init__(self)
+#         self.errorInfo = errorInfo
+#
+#     def __str__(self):
+#         return 'Shit error: that shit is illegal \'' + str(self.errorInfo) + '\''
+#
+#
+# try:
+#     raise ShitError('I wanna code')
+# except Exception as e:
+#     print(e)
+#     new_line()
+#
+#
+# # import
+#
+# # normal
+# import src.com.jmc.io.files as f
+# print(f)
+# # from . import [module_name]
+#
+# # dynamic
+# o = __import__('os')
+# print(o)
+#
+# t = importlib.import_module('turtle')
+# print(t)
+#
+# # importlib.reload('module_name')
+#
+# new_line()
