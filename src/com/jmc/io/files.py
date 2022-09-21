@@ -5,11 +5,12 @@ import zipfile
 
 
 class Files:
-    """Simple file operations."""
+    """ Simple file operations. """
 
     @staticmethod
-    def find(path, content):
-        """Find files which match the content."""
+    def find(path, content) -> (list, list):
+        """ Find files which match the content. """
+
         if not Files.__check('path', path):
             return None
 
@@ -24,12 +25,14 @@ class Files:
 
     @staticmethod
     def findAny(path, content):
-        """Find a file which matches the content."""
+        """ Find a file which matches the content. """
+
         return Files.find(path, content)[0][0]
 
     @staticmethod
     def finds(path, content) -> str:
-        """A simple find fn returns the str result."""
+        """ A simple find fn returns the str result. """
+
         s = time.time()
 
         fs, ds = Files.find(path, content)
@@ -45,16 +48,15 @@ class Files:
 
         e = time.time()
 
-        result.append("""共搜索到
-{0}个文件夹
-{1}个文件
-本搜索耗时{2}秒""".format(len(ds), len(fs), int(e - s)))
+        result.append('共搜索到\n{0}个文件夹\n{1}个文件\n本搜索耗时{2}秒'
+                      .format(len(ds), len(fs), int(e - s)))
 
         return '\n'.join(result)
 
     @staticmethod
     def copy(src, des):
-        """Copy file or dir."""
+        """ Copy file or dir. """
+
         if not Files.__check('src or des', src, des):
             return None
 
@@ -87,7 +89,8 @@ class Files:
 
     @staticmethod
     def move(src, des):
-        """Move file or dir."""
+        """ Move file or dir. """
+
         if not Files.__check('src or des', src, des):
             return None
 
@@ -95,7 +98,8 @@ class Files:
 
     @staticmethod
     def rename(path, newName):
-        """Rename file."""
+        """ Rename file. """
+
         if not Files.__check('path or newName', path, newName):
             return None
 
@@ -103,7 +107,8 @@ class Files:
 
     @staticmethod
     def delete(*paths):
-        """Delete file or dir."""
+        """ Delete file or dir. """
+
         if len(paths) < 1:
             return None
 
@@ -121,7 +126,8 @@ class Files:
 
     @staticmethod
     def zip(src, *zip_path):
-        """make archive and the format is zip."""
+        """ make archive and the format is zip. """
+
         if not Files.__check('src', src):
             return None
 
@@ -149,7 +155,8 @@ class Files:
 
     @staticmethod
     def unzip(zip_path, *des_path):
-        """Unzip the zip file."""
+        """ Unzip the zip file. """
+
         if not Files.__check('zip_path', zip_path):
             return None
 
@@ -167,7 +174,8 @@ class Files:
 
     @staticmethod
     def read(path, mode='r') -> str:
-        """Read file content to str."""
+        """ Read file content to str. """
+
         if not Files.__check('path', path):
             return None
 
@@ -176,7 +184,8 @@ class Files:
 
     @staticmethod
     def out(src, path, mode='w'):
-        """Output content to a file."""
+        """ Output content to a file. """
+
         if not Files.__check('path', path):
             return None
 
@@ -189,7 +198,8 @@ class Files:
 
     @staticmethod
     def __check(msg, *parms):
-        """Check if all the parms are correct."""
+        """ Check if all the parms are correct. """
+
         for p in parms:
             if not bool(p):
                 print('Parm error: ' + msg + ' can not be None')
